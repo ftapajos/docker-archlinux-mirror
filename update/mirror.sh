@@ -3,11 +3,9 @@
 
 RSYNC=/usr/bin/rsync
 
-#MIRROR=rsync://mirrors.uk2.net/archlinux/
-MIRROR=rsync://mirror.de.leaseweb.net/archlinux/
-#MIRROR=rsync://ftp5.gwdg.de/pub/linux/archlinux/
-#MIRROR=rsync://rsync.gtlib.gatech.edu/archlinux/
-#MIRROR=rsync://mirror.rit.edu/archlinux/
+if [[ -z $ARCHLINUX_T1_RSYNC_URL ]] ; then 
+	ARCHLINUX_T1_RSYNC_URL=rsync://mirror.de.leaseweb.net/archlinux/
+fi
 
 OPTIONS=-"rtlvH --delete-after --delay-updates --safe-links --max-delete=3000"
 
@@ -15,7 +13,7 @@ OPTIONS=-"rtlvH --delete-after --delay-updates --safe-links --max-delete=3000"
 pushd /mnt/mirror
 
 while true; do
-	$RSYNC $OPTIONS $MIRROR ./ > /dev/null
+	$RSYNC $OPTIONS $ARCHLINUX_T1_RSYNC_URL ./
 	date > __last_sync
 	sleep 2h
 done

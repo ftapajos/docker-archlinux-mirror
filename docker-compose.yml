@@ -2,6 +2,9 @@ version: '3'
 services:
   mirror-update:
     build: update
+    environment:
+        - ARCHLINUX_T1_RSYNC_URL
+ 
     restart: always
     volumes:
       - mirror-data:/mnt/mirror
